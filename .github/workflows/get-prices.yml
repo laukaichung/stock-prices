@@ -3,7 +3,7 @@ name: Update AAPL Price Daily
 # Run the workflow daily at midnight UTC
 on:
   schedule:
-    - cron: '30 09 * * *' 
+    - cron: '35 09 * * *' 
       # Runs on pushes targeting the default branch
   push:
     branches: ["main"] # This must be added or the workflow won't get triggered.   
@@ -34,5 +34,9 @@ jobs:
         git config user.email "actions@github.com"
         git config user.name "GitHub Actions"
         git add aapl.json
-        git commit -m "Daily update of AAPL price"
-        git push
+        if git diff-index --quiet HEAD --; then
+          echo "No changes to commit."
+        else
+          git commit -m "Daily update of AAPL price"
+          git push
+        fi
