@@ -3,7 +3,10 @@ name: Update AAPL Price Daily
 # Run the workflow daily at midnight UTC
 on:
   schedule:
-    - cron: '20 09 * * *' 
+    - cron: '27 09 * * *' 
+      # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]    
     
 permissions:
   contents: write # Add this line to give the workflow write access
