@@ -3,7 +3,7 @@ name: Update AAPL Price Daily
 # Run the workflow daily at midnight UTC
 on:
   schedule:
-    - cron: '0 0 * * *' 
+    - cron: '1 * * * *' 
 
 jobs:
   update-aapl:
