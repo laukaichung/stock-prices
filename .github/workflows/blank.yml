@@ -1,0 +1,32 @@
+name: Update AAPL Price Daily
+
+# Run the workflow daily at midnight UTC
+on:
+  schedule:
+    - cron: '0 0 * * *' 
+
+jobs:
+  update-aapl:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out the repo code
+      uses: actions/checkout@v3
+      
+    - name: Download JSON file
+      run: |
+        curl -o nasdaq_full_tickers.json https://raw.githubusercontent.com/rreichel3/US-Stock-Symbols/main/nasdaq/nasdaq_full_tickers.json
+      
+    - name: Extract AAPL data and update price
+      run: |
+        AAPL_JSON=$(jq '.[] | select(.symbol=="AAPL")' nasdaq_full_tickers.json)
+        NEW_PRICE=250.00  # Replace with dynamic fetch if needed
+        UPDATED_AAPL_JSON=$(echo "${AAPL_JSON}" | jq --arg price "$NEW_PRICE" '.lastsale = "$" + $price')
+        echo "$UPDATED_AAPL_JSON" > aapl.json
+      
+    - name: Commit and push updated file
+      run: |
+        git config user.email "actions@github.com"
+        git config user.name "GitHub Actions"
+        git add aapl.json
+        git commit -m "Daily update of AAPL price"
+        git push
