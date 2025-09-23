@@ -1,3 +1,5 @@
+You must add the gitignore file.
+
 The output nothing added to commit but untracked files present (use "git add" to track) indicates that your workflow is failing because you have not told Git to track the newly created file nasdaq_full_tickers.json before trying to commit it. 
 Even though your workflow adds aapl.json in a later step, your curl command downloads nasdaq_full_tickers.json, which is an "untracked file" that causes the git commit command to fail if it attempts to commit all files at once. The default behavior of git commit is to fail when there are untracked files. 
 The fix: add a .gitignore file
