@@ -3,7 +3,7 @@ name: Update AAPL Price Daily
 # Run the workflow daily at midnight UTC
 on:
   schedule:
-    - cron: '36 08 * * *' 
+    - cron: '00 03 * * *' 
       # Runs on pushes targeting the default branch
   push:
     branches: ["main"] # This must be added or the workflow won't get triggered.   
